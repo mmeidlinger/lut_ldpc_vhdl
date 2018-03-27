@@ -1,0 +1,43 @@
+;; -*- Emacs-Lisp -*-
+
+;;; .emacs-vhdl-cache-dir-balatsou - design hierarchy cache file for Emacs VHDL Mode 3.33.22
+
+;; Directory : "~/PhD/LDPC Codes/epfl-tuwien-ldpc/sourcecode/VHDL/VNodeAdders/"
+;; Saved     : 2015-03-19 13:26:58 balatsou
+
+
+;; version number
+(setq vhdl-cache-version "3.33.22")
+
+;; directory name
+(setq directory "~/PhD/LDPC Codes/epfl-tuwien-ldpc/sourcecode/VHDL/VNodeAdders/")
+
+;; entity and architecture cache
+(aput 'vhdl-entity-alist directory '
+nil
+)
+
+;; configuration cache
+(aput 'vhdl-config-alist directory '
+nil
+)
+
+;; package cache
+(aput 'vhdl-package-alist directory '
+nil
+)
+
+;; instantiated entities cache
+(aput 'vhdl-ent-inst-alist directory '
+(nil)
+)
+
+;; design units per file cache
+(aput 'vhdl-file-alist directory '
+(("~/PhD/LDPC Codes/epfl-tuwien-ldpc/sourcecode/VHDL/VNodeAdders/vnodeadders.vhd" nil nil nil nil nil nil nil nil))
+)
+
+;; shown design units cache
+(aput 'vhdl-speedbar-shown-unit-alist directory '
+nil
+)
