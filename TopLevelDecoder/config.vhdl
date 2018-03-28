@@ -249,7 +249,7 @@ constant LUTInputBitsL0_N0_S7 : integer := 7;
 constant LUTSizeL0_N0_S7 : integer := 2**(LUTInputBitsL0_N0_S7);
 type LUTTypeL0_N0_S7 is array (0 to LUTSizeL0_N0_S7-1) of integer range 0 to 2**1-1;
 subtype LUTAddrL0_N0_S7 is std_logic_vector(0 to LUTInputBitsL0_N0_S7-1);
-constant LUTL0_N0_S7 : LUTTypeL0_N0_S7 := (7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,6,6,7,7,7,7,7,7,7);
+constant LUTL0_N0_S7 : LUTTypeL0_N0_S7 := (0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1);
 
 constant LUTInputBitsL1_N0_S7 : integer := 6;
 constant LUTSizeL1_N0_S7 : integer := 2**(LUTInputBitsL1_N0_S7);

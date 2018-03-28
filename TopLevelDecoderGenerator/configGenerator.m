@@ -97,7 +97,11 @@ for iter = 1:param.maxIter
                 
                 %----
                 lut=Q{node,level}.map;
-                lut_shuffled = shuffler(double(lut));
+                if( iter == param.maxIter && level == 1 && node == 1 )
+                    lut_shuffled = lut;
+                else
+                    lut_shuffled = shuffler(double(lut));
+                end
                 %----
                 
                 fprintf(fid,'%d,', lut_shuffled(1:end-1));%Q{node,level}.map(1:end-1));%
