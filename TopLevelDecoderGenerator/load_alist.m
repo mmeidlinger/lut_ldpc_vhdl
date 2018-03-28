@@ -10,8 +10,8 @@ N = Halist(1,1);
 M = Halist(1,2);
 
 H = zeros(M,N);
-for ii = 1:M
-   H(ii,Halist(ii+4, Halist(ii+4, :)>0)) = 1;
+for ii = 1:N
+   H(Halist(ii+4, Halist(ii+4, :)>0),ii) = 1;
 end
 
 end
