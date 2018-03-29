@@ -6,10 +6,8 @@ clc
 %% Set independent parameters
 
 % Codec filename generated from the C++ program
-param.lut_tree_filename = '../../lut_ldpc/results/RES_N2048_R0.841309_maxIter8_zcw0_frames100_minLUT/lut_codec.it';
+param.lut_tree_filename = '../../results/RES_N2048_R0.841309_maxIter8_zcw0_frames100_minLUT/lut_codec.it';
 
-% Codec filename generated from the C++ program
-param.alist_filename = '../../lut_ldpc/codes/rate0.84_reg_v6c32_N2048.alist';
 
 %% Dependent parameters
 
@@ -17,7 +15,7 @@ param.alist_filename = '../../lut_ldpc/codes/rate0.84_reg_v6c32_N2048.alist';
 % param.H = load_alist(param.alist_filename);
 
 % Load LUT Trees
-[vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, param.H] = load_lut_trees(param.lut_tree_filename);
+[vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, param.H, param.Nq_Cha_2_Nq_Msg_map] = load_lut_trees(param.lut_tree_filename);
 
 % Define code length
 param.N = size(param.H ,2);
