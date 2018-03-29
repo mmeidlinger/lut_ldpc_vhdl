@@ -9,7 +9,7 @@ Halist = dlmread(filename, ' ');
 N = Halist(1,1);
 M = Halist(1,2);
 
-H = zeros(M,N);
+H = sparse(M,N);
 for ii = 1:N
    H(Halist(ii+4, Halist(ii+4, :)>0),ii) = 1;
 end
