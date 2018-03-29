@@ -29,11 +29,10 @@ subtype IntLLRSubType is integer range 0 to 2**QLLR-1;
 type IntLLRTypeV is array (0 to VNodeDegree-1) of IntLLRSubType;
 
 ------ LUTs ------
-constant LUTInputBits_4bit_to_3bit : integer := 4;
-constant LUTSize_4bit_to_3bit : integer := 2**(LUTInputBits_4bit_to_3bit);
-type LUTType_4bit_to_3bit is array (0 to LUTSize_4bit_to_3bit-1) of integer range 0 to 2**3-1;
-constant LUT_4bit_to_3bit : LUTType_4bit_to_3bit :=(0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7);
-
+constant LUTInputBits_QCh_to_Qmsg : integer := 4;
+constant LUTSize_QCh_to_Qmsg : integer := 2**(LUTInputBits_QCh_to_Qmsg);
+type LUTType_QCh_to_Qmsg is array (0 to LUTSize_QCh_to_Qmsg-1) of integer range 0 to 2**3-1;
+constant LUT_QCh_to_Qmsg : LUTType_QCh_to_Qmsg :=(0,0,0,0,0,1,2,3,4,5,6,7,7,7,7,7);
 
 constant LUTInputBitsL0_N0_S0 : integer := 7;
 constant LUTSizeL0_N0_S0 : integer := 2**(LUTInputBitsL0_N0_S0);

@@ -132,12 +132,8 @@ CNPorts2VN = zeros(param.M,param.CNodeDegree);     % corresponding variable node
 for ii = 1:param.N
     cNodes = find(param.H(:,ii));
     CNPortsUsed(cNodes) = CNPortsUsed(cNodes) + 1;
-    for jj = 1:length(cNodes)   %=param.VNodeDegree
-        if (param.QLLR~=param.QCh)
-            fprintf(fid,'  CNStageIntLLRInputS0xD(%d)(%d) <= LUT_4bit_to_3bit(ChLLRxDI(%d));\n', cNodes(jj)-1, CNPortsUsed(cNodes(jj))-1, ii-1);
-        else
-            fprintf(fid,'  CNStageIntLLRInputS0xD(%d)(%d) <= ChLLRxDI(%d);\n', cNodes(jj)-1, CNPortsUsed(cNodes(jj))-1, ii-1);
-        end
+    for jj = 1:length(cNodes)
+        fprintf(fid,'  CNStageIntLLRInputS0xD(%d)(%d) <= LUT_QCh_to_Qmsg(ChLLRxDI(%d));\n', cNodes(jj)-1, CNPortsUsed(cNodes(jj))-1, ii-1);
         CNPorts2VN(cNodes(jj),CNPortsUsed(cNodes(jj))) = ii;
     end    
 end

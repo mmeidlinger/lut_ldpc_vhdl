@@ -36,45 +36,30 @@ fprintf(fid,'subtype IntLLRSubType is integer range 0 to 2**QLLR-1;\n');
 fprintf(fid,'type IntLLRTypeV is array (0 to VNodeDegree-1) of IntLLRSubType;\n\n');
 
 %% Generate LUTs
-
-% fprintf(fid,['-- LUTs\n' ...
-%   'constant LUTInputBits11 : integer := 3*QLLR;\n' ...
-%   'constant LUTSize11 : integer := 2**(LUTInputBits11);\n' ...
-%   'type LUTType11 is array (0 to LUTSize11-1) of integer range 0 to 2**QLLR-1;\n' ...
-%   'subtype LUTAddr11 is std_logic_vector(0 to LUTInputBits11-1);\n' ...
-%   'constant LUT11 : LUTType11 := (0,0,1,1,2,3,5,6,0,0,1,2,3,4,5,7,0,0,1,2,3,4,5,7,0,0,1,2,3,4,5,7,0,1,1,2,3,4,5,7,0,1,2,2,3,5,6,7,0,1,2,2,4,5,6,7,0,1,2,3,4,5,6,7,0,0,1,2,3,4,5,7,0,1,1,2,3,4,5,7,0,1,1,2,3,4,5,7,0,1,2,2,3,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,4,5,5,6,7,0,0,1,2,3,4,5,7,0,1,1,2,3,4,5,7,0,1,1,2,3,4,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,3,4,5,5,6,7,0,0,1,2,3,4,5,7,0,1,2,2,3,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,2,3,4,5,6,6,7,0,1,1,2,3,4,5,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,2,3,4,5,6,7,7,0,1,2,2,3,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,3,4,5,6,6,7,0,2,3,4,5,6,6,7,0,2,3,4,5,6,7,7,0,1,2,2,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,2,3,4,5,6,6,7,0,2,3,4,5,6,6,7,0,2,3,4,5,6,7,7,0,1,2,3,4,5,6,7,0,1,2,4,5,5,6,7,0,1,3,4,5,5,6,7,0,2,3,4,5,6,6,7,0,2,3,4,5,6,7,7,0,2,3,4,5,6,7,7,0,2,3,4,5,6,7,7,1,2,4,5,6,6,7,7);\n\n' ...
-%   'constant LUTInputBits21 : integer := 2*QLLR;\n' ...
-%   'constant LUTSize21 : integer := 2**(LUTInputBits21);\n' ...
-%   'type LUTType21 is array (0 to LUTSize21-1) of integer range 0 to 2**QLLR-1;\n' ...
-%   'subtype LUTAddr21 is std_logic_vector(0 to LUTInputBits21-1);\n' ...
-%   'constant LUT21 : LUTType21 := (0,0,0,0,0,0,0,3,0,0,0,0,0,0,3,7,0,0,0,1,2,4,7,7,0,0,1,3,4,5,7,7,0,0,2,4,4,6,7,7,0,0,4,5,6,7,7,7,0,3,7,7,7,7,7,7,3,7,7,7,7,7,7,7);\n\n' ...
-%   'constant LUTInputBits22 : integer := 2*QLLR;\n' ...
-%   'constant LUTSize22 : integer := 2**(LUTInputBits22);\n' ...
-%   'type LUTType22 is array (0 to LUTSize22-1) of integer range 0 to 2**QLLR-1;\n' ...
-%   'subtype LUTAddr22 is std_logic_vector(0 to LUTInputBits22-1);\n' ...
-%   'constant LUT22 : LUTType22 := (0,0,0,0,0,0,0,3,0,0,0,0,0,0,3,7,0,0,0,1,2,4,7,7,0,0,1,3,4,5,7,7,0,0,2,4,4,6,7,7,0,0,4,5,6,7,7,7,0,3,7,7,7,7,7,7,3,7,7,7,7,7,7,7);\n\n' ...
-%   'constant LUTInputBits23 : integer := QLLR + QCh;\n' ...
-%   'constant LUTSize23 : integer := 2**(LUTInputBits23);\n' ...
-%   'type LUTType23 is array (0 to LUTSize23-1) of integer range 0 to 2**QLLR-1;\n' ...
-%   'subtype LUTAddr23 is std_logic_vector(0 to LUTInputBits23-1);\n' ...
-%   'constant LUT23 : LUTType23 := (0,0,0,1,2,3,4,6,0,0,1,2,3,4,5,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7,0,2,3,4,5,6,7,7,1,3,4,5,6,7,7,7);\n\n']);
-
 fprintf(fid,'------ LUTs ------\n');
 
-% Convert 4bit width channel to 3 bits with a LUT
-if (param.QLLR==3 && param.QCh==4)
-    warning ('Channel bit width does not match LLR bit width. A LUT is added to perform 4-bit to 3-bit conversion.')
+% % Convert 4bit width channel to 3 bits with a LUT
+% if (param.QLLR==3 && param.QCh==4)
+%     warning ('Channel bit width does not match LLR bit width. A LUT is added to perform 4-bit to 3-bit conversion.')
+% 
+%     fprintf(fid,'constant LUTInputBits_4bit_to_3bit : integer := %d;\n', param.QCh);
+%     fprintf(fid,'constant LUTSize_4bit_to_3bit : integer := 2**(LUTInputBits_4bit_to_3bit);\n');
+%     fprintf(fid,'type LUTType_4bit_to_3bit is array (0 to LUTSize_4bit_to_3bit-1) of integer range 0 to 2**%d-1;\n', param.QLLR);
+%     fprintf(fid,'constant LUT_4bit_to_3bit : LUTType_4bit_to_3bit :=(0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7);\n');
+%     fprintf(fid,'\n\n');
+% elseif (param.QLLR~=param.QCh)
+%     error('There is a LUT for 4-bit ro 3-bit conversion. Modify this LUT or ad another one to support your bit width scenario')
+% else
+%     
+% end
 
-    fprintf(fid,'constant LUTInputBits_4bit_to_3bit : integer := %d;\n', param.QCh);
-    fprintf(fid,'constant LUTSize_4bit_to_3bit : integer := 2**(LUTInputBits_4bit_to_3bit);\n');
-    fprintf(fid,'type LUTType_4bit_to_3bit is array (0 to LUTSize_4bit_to_3bit-1) of integer range 0 to 2**%d-1;\n', param.QLLR);
-    fprintf(fid,'constant LUT_4bit_to_3bit : LUTType_4bit_to_3bit :=(0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7);\n');
-    fprintf(fid,'\n\n');
-elseif (param.QLLR~=param.QCh)
-    error('There is a LUT for 4-bit ro 3-bit conversion. Modify this LUT or ad another one to support your bit width scenario')
-else
-    
-end
+% Convert from channel LLR bit-width to check node bit-width for first check node
+fprintf(fid,'constant LUTInputBits_QCh_to_Qmsg : integer := %d;\n', param.QCh);
+fprintf(fid,'constant LUTSize_QCh_to_Qmsg : integer := 2**(LUTInputBits_QCh_to_Qmsg);\n');
+fprintf(fid,'type LUTType_QCh_to_Qmsg is array (0 to LUTSize_QCh_to_Qmsg-1) of integer range 0 to 2**%d-1;\n', param.QLLR);
+fprintf(fid,'constant LUT_QCh_to_Qmsg : LUTType_QCh_to_Qmsg :=(');
+fprintf(fid,'%d,', param.Nq_Cha_2_Nq_Msg_map(1:end-1));
+fprintf(fid,'%d);\n\n', param.Nq_Cha_2_Nq_Msg_map(end));
 
 % Convert tree to cell
 Qcell = cell(param.maxIter,1);
@@ -95,14 +80,13 @@ for iter = 1:param.maxIter
                 fprintf(fid,'subtype LUTAddrL%d_N%d_S%d is std_logic_vector(0 to LUTInputBitsL%d_N%d_S%d-1);\n', level-1, node-1, iter-1, level-1, node-1, iter-1);
                 fprintf(fid,'constant LUTL%d_N%d_S%d : LUTTypeL%d_N%d_S%d := (', level-1, node-1, iter-1, level-1, node-1, iter-1);
                 
-                %----
-                lut=Q{node,level}.map;
+                % Shuffle values if needed to ensure correct check node operation
                 if( iter == param.maxIter && level == 1 && node == 1 )
+                    lut=Q{node,level}.map;
                     lut_shuffled = lut;
                 else
-                    lut_shuffled = shuffler(double(lut));
+                    lut_shuffled = shuffler(Q{node,level});
                 end
-                %----
                 
                 fprintf(fid,'%d,', lut_shuffled(1:end-1));%Q{node,level}.map(1:end-1));%
                 fprintf(fid,'%d);\n\n', lut_shuffled(end));%Q{node,level}.map(end));%
