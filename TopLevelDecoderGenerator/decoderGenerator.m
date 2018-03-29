@@ -13,9 +13,6 @@ param.alist_filename = '../../lut_ldpc/codes/rate0.84_reg_v6c32_N2048.alist';
 
 %% Dependent parameters
 
-% % Convert parity-check matrix to matrix form
-% param.H = load_alist(param.alist_filename);
-
 % Load LUT Trees
 [vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, param.H] = load_lut_trees(param.lut_tree_filename);
 
