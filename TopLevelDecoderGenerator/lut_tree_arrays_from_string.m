@@ -1,3 +1,7 @@
+% deserialize a LUT Tree string (cf. https://mail.nt.tuwien.ac.at/unfold/md_trees_README.html for details) into a tree of node MATLAB objects
+% Author: Michael Meidlinger (michael@meidlinger.info)
+% Copyright (C) 2018 Michael Meidlinger - All Rights Reserved
+
 function [vn_tree_array, cn_tree_array] = lut_tree_arrays_from_string(var_tree_string, chk_tree_string)
     
     %% Process VN luts

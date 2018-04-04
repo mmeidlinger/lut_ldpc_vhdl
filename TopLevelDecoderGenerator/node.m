@@ -1,7 +1,9 @@
 classdef node < handle
-    %LUT Tree node class 
+    %LUT Tree node class for handling LUT trees in MATLAB (cf.
+    %https://mail.nt.tuwien.ac.at/unfold/md_trees_README.html for more
+    %infor on LUT Trees)
     % Author: Michael Meidlinger (michael@meidlinger.info)
-    % Copyright (C) 2017 Michael Meidlinger - All Rights Reserved
+    % Copyright (C) 2018 Michael Meidlinger - All Rights Reserved
     
     properties
         parent   %parent node
