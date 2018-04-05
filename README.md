@@ -7,7 +7,21 @@ LUT LDPC VHDL is a software tool that uses the optimized look-up tables designed
 For the generation of the VHDL code, the LUT LDPC VHDL software requires an installation of MATLAB. It has been tested and verified to be working with MATLAB R2016b. The simulation of the generated VHDL code with the provided testbenches requires a functioning installation of ModelSim.
 
 ## Installation
-The LUT LDPC VHDL software is installed as part of the LUT LDPC software tools. The installation procedure is described in detail [here](https://dev.meidlinger.info/michael.meidlinger/lut_ldpc/blob/master/README.md). After the installation, the VHDL generation scripts can be found in the `lut_ldpc_vhdl` directory.
+The LUT LDPC VHDL software is installed as part of the LUT LDPC software tools. The installation procedure is described in detail [here](https://dev.meidlinger.info/michael.meidlinger/lut_ldpc/blob/master/README.md#installation). After the installation, the VHDL generation scripts can be found in the `lut_ldpc_vhdl` directory.
+
+# Structure
+The `lut_ldpc_vhdl` folder has the following structure
+```
+.
+├── ModelSim                        # Scripts and files for compilation and simulation with ModelSim
+├── TopLevelDecoder                 # Generated VHDL files for LUT-based decoder
+├── TopLevelDecoderGenerator        # VHDL generation scripts for LUT-based decoder
+├── TopLevelDecoderAdders           # Generated VHDL files for baseline adder-based decoder
+├── TopLevelDecoderGeneratorAdders  # VHDL generation scripts for baseline adder-based decoder
+└── README.md                       # This README file
+```
+
+# Usage
 
 # Referencing
 If you use this software for your academic research, please consider referencing our original contributions [[1,2,3,4]](#literature).
