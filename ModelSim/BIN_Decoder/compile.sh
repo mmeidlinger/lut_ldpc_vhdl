@@ -4,7 +4,7 @@ set LIB=work
 set rtlpath = ../TopLevelDecoder
 set tbpath = ../TopLevelDecoder
 
-# delete and recreate library 
+# Delete and recreate library 
 rm -rf $LIB
 eda mgc vlib $LIB
 
@@ -42,8 +42,6 @@ eda mgc vcom -work $LIB $rtlpath/VNStage_S7.vhdl
 
 # Top level decoder
 eda mgc vcom -work $LIB $rtlpath/TopLevelDecoder.vhdl
-
-
 
 # TB
 eda mgc vcom -work $LIB $tbpath/TopLevelDecoderTB.vhd
