@@ -1,6 +1,6 @@
 %load alist sparse GF2 matrix from file and return dense GF2 matrix
 % Author: Michael Meidlinger (michael@meidlinger.info)
-% Copyright (C) 2017 Michael Meidlinger - All Rights Reserved
+% Copyright (C) 2018 Michael Meidlinger - All Rights Reserved
 
 function H = load_alist(filename)
     

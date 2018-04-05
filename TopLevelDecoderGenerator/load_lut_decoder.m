@@ -1,4 +1,9 @@
-function [vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, H, Nq_Cha_2_Nq_Msg_map] =   load_lut_trees(lut_tree_filename)
+%load LUT decoder from file produce using the LUT-LDPC C++ software for
+%simulation and design of LUT-based LDPC decoders
+% Author: Michael Meidlinger (michael@meidlinger.info)
+% Copyright (C) 2018 Michael Meidlinger - All Rights Reserved
+
+function [vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, H, Nq_Cha_2_Nq_Msg_map] =   load_lut_decoder(lut_tree_filename)
     max_iters = [];
     reuse_vec = [];
     Nq_Msg = [];

@@ -1,7 +1,7 @@
 classdef queue < handle
     %A simple queue class 
     % Author: Michael Meidlinger (michael@meidlinger.info)
-    % Copyright (C) 2017 Michael Meidlinger - All Rights Reserved
+    % Copyright (C) 2018 Michael Meidlinger - All Rights Reserved
     
     
     properties
