@@ -1,20 +1,13 @@
 # Introduction
-LUT LDPC VHDL is a software tool that uses the optimized look-up tables designed by the the [LUT LDPC](lut_ldpc/README.md) software in order to generate VHDL code and simulation files for a fully-unrolled LDPC decoder (cf. [[3-4]](#literature)).
+LUT LDPC VHDL is a software tool that uses the optimized look-up tables designed by the the LUT LDPC software in order to generate VHDL code and simulation files for a fully-unrolled LDPC decoder (cf. [[3-4]](#literature)).
 
 # Installation
 
 ## Requirements
-For the generation of the VHDL code, the LUT LDPC VHDL software requires an installation of MATLAB (it has been tested and verified to be working with version R2016b). The simulation of the generated VHDL code with the provided testbenches requires a functioning installation of ModelSim.
+For the generation of the VHDL code, the LUT LDPC VHDL software requires an installation of MATLAB. It has been tested and verified to be working with MATLAB R2016b. The simulation of the generated VHDL code with the provided testbenches requires a functioning installation of ModelSim.
 
 ## Installation
-The LUT LDPC VHDL software is installed as part of the LUT LDPC software tools. To download and install the software open a terminal and enter
-```
-git clone --recursive https://dev.meidlinger.info/michael.meidlinger/lut_ldpc.git
-cd lut_ldpc
-make
-make install
-```
-This will compile and link the program as well as the patched IT++ library and install the programs locally within the `lut_ldpc` directory into the `bin` directory. The VHDL generation scripts can be found in the `lut_ldpc_vhdl` directory.
+The LUT LDPC VHDL software is installed as part of the LUT LDPC software tools. The installation procedure is described in detail [here](https://dev.meidlinger.info/michael.meidlinger/lut_ldpc/blob/master/README.md). After the installation, the VHDL generation scripts can be found in the `lut_ldpc_vhdl` directory.
 
 # Referencing
 If you use this software for your academic research, please consider referencing our original contributions [[1,2,3,4]](#literature).
