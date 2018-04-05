@@ -2,26 +2,8 @@ clear
 close all
 clc
 
-%% Set parameters
-
-% Add paths
-addpath('../../quantizer_design');
-addpath('../../quantizer_design/quantDynProg');
-
-% Define code length
-param.N = 2048;
-
-% Variable node degree
-param.VNodeDegree = 6;
-
-% Check node degree
-param.CNodeDegree = 32;
-
-% Load parity-check matrix in a-list form
-param.Halist = load(sprintf('../../decoder/codes/v%dc%d-reg_%d', param.VNodeDegree, param.CNodeDegree, param.N));
-
-% Number of check nodes
-param.M = size(param.Halist,1);
+%% Set independent parameters
+H_filename = '../../codes/rate0.84_reg_v6c32_N2048.alist';
 
 % Internal LLR bit-width
 param.QLLR = 5;
@@ -32,11 +14,31 @@ param.QCh = 5;
 % Maximum number of iterations
 param.maxIter = 5;
 
-% Convert parity-check matrix to matrix form
-param.H = zeros(param.M,param.N);
-for ii = 1:param.M
-   param.H(ii,param.Halist(ii,:)) = 1;
+%% Set parameters
+
+% Load parity-check matrix in a-list form
+param.H = load_alist(H_filename);
+
+% Define code length
+param.N = size(param.H,2);
+
+% Number of check nodes
+param.M = size(param.H,1);
+
+% Variable node degree
+if( length(unique(sum(param.H,1))) == 1 )
+    param.VNodeDegree = full(sum(param.H(:,1)));
+else
+    error('Irregular Codes not supported yet!')
 end
+
+% Check node degree
+if( length(unique(sum(param.H,2))) == 1 )
+    param.CNodeDegree = full(sum(param.H(1,:)));
+else
+    error('Irregular Codes not supported yet!')
+end
+
 
 %% Generate required VHDL files
 
