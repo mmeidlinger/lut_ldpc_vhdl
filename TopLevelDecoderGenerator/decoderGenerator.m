@@ -10,9 +10,6 @@ param.lut_codec_filename = '../../results/RES_N2048_R0.841309_maxIter8_zcw1_fram
 
 %% Dependent parameters
 
-% % Convert parity-check matrix to matrix form
-% param.H = load_alist(param.alist_filename);
-
 % Load LUT Decoder from file generated using the LUT-LDPC C++ software
 [vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn_degrees, cn_degrees, param.H, param.Nq_Cha_2_Nq_Msg_map] = load_lut_decoder(param.lut_codec_filename);
 
