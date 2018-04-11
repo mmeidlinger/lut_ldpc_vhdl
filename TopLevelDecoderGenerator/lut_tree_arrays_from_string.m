@@ -8,7 +8,7 @@ function [vn_tree_array, cn_tree_array] = lut_tree_arrays_from_string(var_tree_s
     if(isempty(var_tree_string))
         error('var_tree_string must not be empty! make sure you loaded a valid decoder')
     end
-    var_tree_string_split = splitlines(var_tree_string.'); % cell array of lines in the string
+    var_tree_string_split = strsplit(var_tree_string.' ,'\n'); % cell array of lines in the string
     % number of trees
     num_trees_iter = str2num(var_tree_string_split{1});
     var_tree_string_split(1) = [];
@@ -25,7 +25,7 @@ function [vn_tree_array, cn_tree_array] = lut_tree_arrays_from_string(var_tree_s
     if(isempty(var_tree_string))
         error('chk_tree_string must not be empty! make sure you loaded a valid decoder')
     end
-    chk_tree_string_split = splitlines(chk_tree_string.'); % cell array of lines in the string
+    chk_tree_string_split =  strsplit(chk_tree_string.' ,'\n');
     num_trees_iter = str2num(chk_tree_string_split{1});
     chk_tree_string_split(1) = [];
     

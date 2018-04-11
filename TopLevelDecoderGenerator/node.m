@@ -28,7 +28,7 @@ classdef node < handle
     methods
         function obj = node(type)
             obj.parent= [];
-            obj.children = [];
+            obj.children = {};
             obj.Q = [];
             obj.type = type;    % root, im, cha, msg
             obj.p = [];
@@ -40,7 +40,7 @@ classdef node < handle
             if( strcmp(type, 'msg') == 0 && strcmp(type, 'cha'))
                 new_child = node(type);
                 new_child.parent = obj;
-                obj.children = [obj.children, new_child];    
+                obj.children{end+1} = new_child;    
             end
         end
         
@@ -50,7 +50,7 @@ classdef node < handle
             root.Q = obj.Q;
             root.outres = obj.outres;
             for ii = 1:length(obj.children)
-                root.children  = [root.children, obj.children(ii).deepcopy()];
+                root.children{end+1}  =  obj.children{ii}.deepcopy();
             end
 
             return;
@@ -67,7 +67,7 @@ classdef node < handle
                 return  
             else
                 for ii = 1:length(obj.children)
-                    obj.children(ii).setLeaves(p_Msg, p_Cha);
+                    obj.children{ii}.setLeaves(p_Msg, p_Cha);
                 end
             end
         end
@@ -84,7 +84,7 @@ classdef node < handle
             else
                 p_Msg = {};
                 for ii = 1:length(obj.children)
-                    [ p_Msg{ii},  MI] = obj.children(ii).VnUpdateTree(Nq_Msg_in, Nq_Msg_out,quant_method);
+                    [ p_Msg{ii},  MI] = obj.children{ii}.VnUpdateTree(Nq_Msg_in, Nq_Msg_out,quant_method);
                 end
                 % At this point we are at an im or root node an have examined and callected all
                 % children distributions in p_Msg
@@ -117,21 +117,21 @@ classdef node < handle
             levels = obj.breadthFirstSearch; 
             levels.reverse;
             for jj = 1:length(levels.elements)
-                for ii = 1:length(levels.elements(jj).elements)
-                    tmp_node = levels.elements(jj).elements(ii);
+                for ii = 1:length(levels.elements{jj}.elements)
+                    tmp_node = levels.elements{jj}.elements{ii};
                     quant.map = cast(tmp_node.Q, 'int64');
                     quant.lmap = cast(length(quant.map),'int64');
                     quant.outres = cast(tmp_node.outres, 'int64');
                     quant.inres = zeros(1,length(tmp_node.children), 'int64');
                     quant.numin = cast(length(tmp_node.children),'int64');
                     for ll = 1:length(tmp_node.children)
-                        if strcmp(tmp_node.children(ll).type, 'im') || strcmp(tmp_node.children(ll).type, 'msg')
+                        if strcmp(tmp_node.children{ll}.type, 'im') || strcmp(tmp_node.children{ll}.type, 'msg')
                             quant.inres(ll) = cast(Nq_Msg, 'int64');
-                        elseif strcmp(tmp_node.children(ll).type, 'cha')
+                        elseif strcmp(tmp_node.children{ll}.type, 'cha')
                             quant.inres(ll) = cast(Nq_Cha, 'int64');
                         end
                         % Store type of input message
-                        quant.type{ll} = tmp_node.children(ll).type;
+                        quant.type{ll} = tmp_node.children{ll}.type;
                     end
                     qcell{ii, jj} = quant;
                 end
@@ -148,8 +148,8 @@ classdef node < handle
                 traverse = myq1.removeElement();
                 level.addElement(traverse);
                 for ii=1:length(traverse.children)
-                    if ~ (strcmp(traverse.children(ii).type,'msg') || strcmp(traverse.children(ii).type,'cha'))
-                        myq2.addElement(traverse.children(ii));
+                    if ~ (strcmp(traverse.children{ii}.type,'msg') || strcmp(traverse.children{ii}.type,'cha'))
+                        myq2.addElement(traverse.children{ii});
                     end
                 end
                 if isempty(myq1.elements) %we reached the end of a level
@@ -172,7 +172,7 @@ classdef node < handle
             else
                 l = l+1;     
                 for ii = 1:length(obj.children)
-                    m = m + getMetric(obj.children(ii),l);
+                    m = m + getMetric(obj.children{ii},l);
                 end
             end
         end
@@ -218,7 +218,7 @@ classdef node < handle
             end
             %=== Proceed to traverse the tree
             for ii = 1:length(obj.children)
-                 outstring = drawTreeRecursive(obj.children(ii),outstring,level+1);
+                 outstring = drawTreeRecursive(obj.children{ii},outstring,level+1);
             end
             %=== Befor returning, the child{... statements need to be
             %closed
@@ -279,22 +279,24 @@ classdef node < handle
             % proceed recursively with children
             for cc=1:num_children
                [new_child, tree_string_split] = node.deserialize_tree( tree_string_split);
-               new_node.children = [new_node.children, new_child];
+               new_node.children{end+1} =  new_child;
                new_child.parent = new_node;
             end
         end
-    end
-    
-end
+      
+        function outstring = newTreeLine(outstring, treelevel)
+            % This function is referenced by drawTreeRecursive() and attaches a
+            % newline and indentation to the outstring
+            outstring = sprintf('%s\n', outstring);
+            for ii = 1:treelevel
+                outstring = sprintf('%s   ', outstring);
+            end
+            return;
+        end
 
-function outstring = newTreeLine(outstring, treelevel)
-    % This function is referenced by drawTreeRecursive() and attaches a
-    % newline and indentation to the outstring
-    outstring = sprintf('%s\n', outstring);
-    for ii = 1:treelevel
-        outstring = sprintf('%s   ', outstring);
     end
-    return;
+
+    
 end
 
 

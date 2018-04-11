@@ -10,14 +10,14 @@ classdef queue < handle
     
     methods
         function q = queue(obj)
-            obj.elements = [];
+            obj.elements = {};
         end
         
         function addElement(obj, newElement)
-            obj.elements = [obj.elements, newElement];
+            obj.elements{end+1} =  newElement;
         end
         function elem = removeElement(obj)
-            elem = obj.elements(1);
+            elem = obj.elements{1};
             obj.elements(1) = [];
         end
         function reverse(obj)

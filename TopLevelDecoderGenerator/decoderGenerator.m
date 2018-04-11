@@ -6,7 +6,7 @@ clc
 %% Set independent parameters
 
 % Codec filename generated from the C++ program
-param.lut_codec_filename = '../../results/RES_N2048_R0.841309_maxIter8_zcw1_frames100_minLUT/lut_codec.it';
+param.lut_codec_filename = '../../results/RES_N2048_R0.841309_maxIter8_zcw0_frames20_minLUT/lut_codec.it';
 
 %% Dependent parameters
 
