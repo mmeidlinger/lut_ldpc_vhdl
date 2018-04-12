@@ -1,0 +1,17 @@
+# Generated VHDL
+TopLevelDecoder/TopLevelDecoder.vhdl
+TopLevelDecoder/VNStage_S*.vhdl
+TopLevelDecoder/VNodeLUT_S*.vhdl
+TopLevelDecoder/config.vhdl
+TopLevelDecoderAdders/TopLevelDecoder.vhdl
+TopLevelDecoderAdders/config.vhdl
+
+# Testbench outputs
+ModelSim/BIN_Decoder/work/
+ModelSim/transcript
+ModelSim/vsim.wlf
+ModelSim/vsim_stacktrace.vstf
+ModelSim/work/
+
+# Octave Workspace
+*octave-workspace*
