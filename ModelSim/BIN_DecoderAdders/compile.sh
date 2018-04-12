@@ -1,35 +1,38 @@
-#! /bin/tcsh -f
+#! /bin/bash
 
-set LIB=work
-set rtlpath = ../TopLevelDecoderAdders
-set tbpath = ../TopLevelDecoderAdders
+VCOM=~/altera/13.1/modelsim_ase/bin/vcom
+VLIB=~/altera/13.1/modelsim_ase/bin/vlib
+
+LIB=work
+rtlpath=../TopLevelDecoderAdders
+tbpath=../TopLevelDecoderAdders
 
 # delete and recreate library 
 rm -rf $LIB
-eda mgc vlib $LIB
+$VLIB $LIB
 
 # Config packages
-eda mgc vcom -work $LIB $rtlpath/config.vhdl
+$VCOM -work $LIB $rtlpath/config.vhdl
 
 # Register banks
-eda mgc vcom -work $LIB $rtlpath/IntLLRVNStageRegBank.vhdl
-eda mgc vcom -work $LIB $rtlpath/IntLLRCNStageRegBank.vhdl
-eda mgc vcom -work $LIB $rtlpath/ChLLRRegBank.vhdl
-eda mgc vcom -work $LIB $rtlpath/DecodedBitsVNStageRegBank.vhdl
+$VCOM -work $LIB $rtlpath/IntLLRVNStageRegBank.vhdl
+$VCOM -work $LIB $rtlpath/IntLLRCNStageRegBank.vhdl
+$VCOM -work $LIB $rtlpath/ChLLRRegBank.vhdl
+$VCOM -work $LIB $rtlpath/DecodedBitsVNStageRegBank.vhdl
 
 # Check node stage
-eda mgc vcom -work $LIB $rtlpath/min4.vhdl
-eda mgc vcom -work $LIB $rtlpath/cnodetree.vhdl
-eda mgc vcom -work $LIB $rtlpath/CNStage.vhdl
+$VCOM -work $LIB $rtlpath/min4.vhdl
+$VCOM -work $LIB $rtlpath/cnodetree.vhdl
+$VCOM -work $LIB $rtlpath/CNStage.vhdl
 
 # Variable node stage
-eda mgc vcom -work $LIB $rtlpath/vnodeadders.vhdl
-eda mgc vcom -work $LIB $rtlpath/VNStage.vhdl
-eda mgc vcom -work $LIB $rtlpath/VNStageLastIter.vhdl
+$VCOM -work $LIB $rtlpath/vnodeadders.vhdl
+$VCOM -work $LIB $rtlpath/VNStage.vhdl
+$VCOM -work $LIB $rtlpath/VNStageLastIter.vhdl
 
 # Top level decoder
-eda mgc vcom -work $LIB $rtlpath/TopLevelDecoder.vhdl
+$VCOM -work $LIB $rtlpath/TopLevelDecoder.vhdl
 
 
 # TB
-eda mgc vcom -work $LIB $tbpath/TopLevelDecoderTB.vhd
+$VCOM -work $LIB $tbpath/TopLevelDecoderTB.vhd

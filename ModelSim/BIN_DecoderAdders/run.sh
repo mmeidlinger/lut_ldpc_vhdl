@@ -1,6 +1,8 @@
-#! /bin/tcsh -f
+#! /bin/bash
+
+VSIM=~/altera/13.1/modelsim_ase/bin/vsim
 
 # Run the testbench
-eda mgc vsim -novopt -t 1ps \
-			-do BIN_DecoderAdders/SimScripts.do \
-                        work.TopLevelDecoderTB &
+$VSIM -novopt -t 1ps \
+      -do BIN_DecoderAdders/SimScripts.do \
+      work.TopLevelDecoderTB &
