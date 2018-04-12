@@ -15,11 +15,11 @@ for indx = 1:2^(inbits)
     indxBin=dec2bin(indx-1,inbits);
     
     % Generate new index
-    indxBinNew = [];
+    indxBinNew = '';
     startInd = 1;
     for ii = 1:length(inres)
         indxBinTemp = indxBin(startInd:startInd+inres(ii)-1);
-        indxBinNew = [ indxBinNew dec2bin(OffsetBin_to_SignMag(bin2dec(indxBinTemp),inres(ii)),inres(ii)) ];        
+        indxBinNew = [indxBinNew, dec2bin(OffsetBin_to_SignMag(bin2dec(indxBinTemp),inres(ii)),inres(ii)) ];        
         startInd = startInd+inres(ii);
     end
     
