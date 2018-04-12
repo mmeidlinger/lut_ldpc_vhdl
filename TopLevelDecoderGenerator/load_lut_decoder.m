@@ -12,8 +12,14 @@ function [vn_tree_array, cn_tree_array, max_iters, reuse_vec, Nq_Msg, Nq_Cha, vn
     cn_degrees = []; 
     Nq_Cha_2_Nq_Msg_map = [];
     
-    % Load parameters
+    % Load parameters. There are some filetypes in the decoder object that
+    % cannot be processed by matlab like bools or GF2 matrices. To avoid
+    % warnings for these, we temporarily disable them here
+    orig_state = warning;
+    warning('off','all')
     itload(lut_tree_filename);
+    warning(orig_state);
+
     
     reuse_vec = reuse_vec.';
     Nq_Msg = Nq_Msg.';

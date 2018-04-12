@@ -3,6 +3,17 @@ close all
 clear all
 clc
 
+
+% If octave is used, ignore some unnecesary warnings
+isOctave = exist('OCTAVE_VERSION', 'builtin') ~= 0;
+if(isOctave)
+    warning('off', 'Octave:language-extension');
+    warning('off', 'Octave:missing-semicolon');
+    warning('off', 'Octave:variable-switch-label'); 
+    warning('off', 'Octave:mixed-string-concat');
+end
+
+
 %% Set independent parameters
 
 % Codec filename generated from the C++ program
