@@ -1,6 +1,11 @@
 # Introduction
 LUT-LDPC-VHDL is a software tool that uses the optimized look-up tables designed by the the LUT-LDPC software in order to generate VHDL code and simulation files for a fully-unrolled LDPC decoder (cf. [[3-4]](#literature)).
 
+# Quickstart
+All necessary steps to download and install LUT-LDPC as well as LUT-LDPC-VHDL and perform a reference decoder design
+on Ubuntu 17.10 are documented in the [Quickstart guide](https://github.com/mmeidlinger/lut_ldpc/blob/master/QUICKSTART.md).
+More detailed explanations of those steps are provide in the following sections.
+
 # Installation
 
 ## Requirements
