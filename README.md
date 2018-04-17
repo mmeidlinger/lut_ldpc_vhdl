@@ -54,7 +54,7 @@ param.lut_codec_filename = '../../results/RES_N2048_R0.841309_maxIter8_zcw1_fram
 All remaining parameters are derived from the parity-check matrix of the code and the remaining loaded files. The generated VHDL files can be found in the `TopLevelDecoder` folder.
 
 ## VHDL Code Simulation
-The compilation scripts for the LUT-based decoder and adder-based decoder (`compile.sh`) are provided in `ModelSim/BIN_Decoder` and `ModelSim/BIN_DecoderAdder`. Once the HDL files have been compiled into the work library, the simulation is run by running the scrips (`run.sh`), provided in simillar directories.
+The compilation scripts for the LUT-based decoder and adder-based decoder (`compile.sh`) are provided in `ModelSim/BIN_Decoder` and `ModelSim/BIN_DecoderAdder`. Once the HDL files have been compiled into the work library, the simulation is run by running the scrips (`run.sh`), provided in simillar directories, as 'source run.sh'. Note that you need to update the variables: VCOM, VLIB, VSIM, in the scripts according to your ModelSim installation.
 The in/out stimulis are provided in `ModelSim/OUT` directory.
 
 # Referencing
