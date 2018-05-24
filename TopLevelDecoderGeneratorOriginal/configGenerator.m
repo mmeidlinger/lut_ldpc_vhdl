@@ -96,8 +96,18 @@ for iter = 1:param.maxIter
                 fprintf(fid,'constant LUTL%d_N%d_S%d : LUTTypeL%d_N%d_S%d := (', level-1, node-1, iter-1, level-1, node-1, iter-1);
                 
                 %----
-                lut=Q{node,level}.map;
-                lut_shuffled = shuffler(double(lut));
+%                 lut=Q{node,level}.map;
+%                 lut_shuffled = shuffler(double(lut));
+                
+                % Shuffle values if needed to ensure correct check node operation
+                if( iter == param.maxIter && level == 1 && node == 1 )
+                    lut=Q{node,level}.map;
+                    lut_shuffled = lut;
+                else
+                    lut=Q{node,level}.map;
+                    lut_shuffled = shuffler(double(lut));
+                end
+                
                 %----
                 
                 fprintf(fid,'%d,', lut_shuffled(1:end-1));%Q{node,level}.map(1:end-1));%
