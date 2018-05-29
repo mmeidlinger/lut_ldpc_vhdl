@@ -202,7 +202,7 @@ classdef node < handle
             % Recursive part of drawTree. Use root.drawTreeRecursive([],0)
             % if you want to produce only the tree without the preamble
             %=== Write a newline and indentation
-            outstring=newTreeLine(outstring, level);
+            outstring=obj.newTreeLine(outstring, level);
             %=== Write the nodes according to the type of node
             switch obj.type
                 case 'root'
@@ -222,7 +222,7 @@ classdef node < handle
             end
             %=== Befor returning, the child{... statements need to be
             %closed
-            outstring = newTreeLine(outstring, level);
+            outstring = obj.newTreeLine(outstring, level);
             if strcmp(obj.type, 'root')
                 outstring = [outstring, ';'];
             else
