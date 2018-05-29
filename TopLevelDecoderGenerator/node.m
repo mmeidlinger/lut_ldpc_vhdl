@@ -186,13 +186,18 @@ classdef node < handle
             %=== preamble
             outstring = sprintf(['\\tikzset{\n', ...
                                 '   leavenode/.style = {align=center, inner sep=2pt, text centered },\n',...
-                                '   imnode/.style = {align=center, inner sep=1pt, text centered}\n',...
+                                '   imnode/.style = {align=center, inner sep=1pt, text centered},\n']);
+            height = obj.get_height();
+            for hh=1:height
+                outstring = sprintf('%s   level %d/.style={sibling distance=%dmm},\n', outstring, hh, 7*2^(height-hh));
+            end
+            outstring = sprintf(['%s'...
                                 '}\n\n',...
                                 '\\def\\imstring{$\\Phi$}\n',...
                                 '\\def\\chastring{$L$}\n',...
                                 '\\def\\msgstring{$\\mu$}\n\n',...
                                 '\\begin{tikzpicture}[<-, >=stealth]' ...
-                                ]);
+                                ], outstring);
             outstring= drawTreeRecursive(obj,outstring,0);
             %=== postamble
             outstring = sprintf('%s\n\\end{tikzpicture}',outstring);
@@ -229,6 +234,16 @@ classdef node < handle
                 outstring = [outstring, '}'];
             end
             
+        end
+        
+        function h = get_height(obj)
+            h = 0;
+            for cc=1:length(obj.children)
+                h_tmp = obj.children{cc}.get_height();
+                if(h_tmp >= h)
+                    h = h_tmp+1;
+                end
+            end
         end
         
     end
