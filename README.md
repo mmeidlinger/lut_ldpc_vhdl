@@ -55,7 +55,7 @@ All remaining parameters are derived from the parity-check matrix of the code an
 
 ## VHDL Code Simulation
 The compilation scripts for the LUT-based decoder and adder-based decoder (`compile.sh`) are provided in `ModelSim/BIN_Decoder` and `ModelSim/BIN_DecoderAdder`. Once the HDL files have been compiled into the work library, the simulation is run by running the scrips (`run.sh`), provided in simillar directories, as 'source run.sh'. Note that you need to update the variables: VCOM, VLIB, VSIM, in the scripts according to your ModelSim installation.
-The in/out stimulis are provided in `ModelSim/OUT` directory.
+The in/out stimulis are provided in `ModelSim/OUT` directory and will be updated automatically once you run the ber simulation.
 
 # Referencing
 If you use this software for your academic research, please consider referencing our original contributions [[1,2,3,4]](#literature).

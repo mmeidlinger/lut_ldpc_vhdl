@@ -37,21 +37,32 @@ architecture arch of CNodeTree is
   
 begin
 
-  -- Get absolute values and product of all signs
+  -- Get signs and product of all signs
+  get_signs_memless: process(IntLLRxDI,allSignsxD)
+  begin
+    for ii in 0 to CNodeDegree-1 loop
+      allSignsxD(ii) <= not(to_unsigned(IntLLRxDI(ii),QLLR)(QLLR-1));
+    end loop;  -- ii
+    allSignsProdxD <= xor_reduce(allSignsxD);
+  end process;
+
+  -- Get absolute values
   get_abs_val_memless: process(IntLLRxDI,allSignsxD)
   begin
     for ii in 0 to CNodeDegree-1 loop
-      DataInxD(ii) <= std_logic_vector(to_unsigned(IntLLRxDI(ii),QLLR)(QLLR-2 downto 0));
-      allSignsxD(ii) <= to_unsigned(IntLLRxDI(ii),QLLR)(QLLR-1);
+      if( allSignsxD(ii) = '1' ) then
+        DataInxD(ii) <= not(std_logic_vector(to_unsigned(IntLLRxDI(ii),QLLR)(QLLR-2 downto 0)));
+      else
+        DataInxD(ii) <= std_logic_vector(to_unsigned(IntLLRxDI(ii),QLLR)(QLLR-2 downto 0));
+      end if;
     end loop;  -- ii
-    allSignsProdxD <= xor_reduce(allSignsxD);
   end process;
 
   -- Sorter tree
   sorter_tree_memless: process(DataInxD)
   begin
-		-- Default assignment
-		allIntLLRsxD(0) <= (others=>(others=>'1'));
+        -- Default assignment
+	allIntLLRsxD(0) <= (others=>(others=>'1'));
     -- Sort input pairs
     for ii in 0 to CNodeDegree/2-1 loop
       if( DataInxD(2*ii+1) < DataInxD(2*ii) ) then
@@ -91,15 +102,15 @@ begin
     for ii in 0 to CNodeDegree-1 loop
       if( DataInxD(ii) /= MinxD(0) ) then
         if( (allSignsProdxD xor allSignsxD(ii)) = '0' ) then
-          IntLLRxDO(ii) <= to_integer(unsigned('0' & MinxD(0)));
-        else
           IntLLRxDO(ii) <= to_integer(unsigned('1' & MinxD(0)));
+        else
+          IntLLRxDO(ii) <= to_integer(unsigned('0' & not(MinxD(0))));
         end if;
       else
         if( (allSignsProdxD xor allSignsxD(ii)) = '0' ) then
-          IntLLRxDO(ii) <= to_integer(unsigned('0' & MinxD(1)));
-        else
           IntLLRxDO(ii) <= to_integer(unsigned('1' & MinxD(1)));
+        else
+          IntLLRxDO(ii) <= to_integer(unsigned('0' & not(MinxD(1))));
         end if;
       end if;
     end loop;  -- ii

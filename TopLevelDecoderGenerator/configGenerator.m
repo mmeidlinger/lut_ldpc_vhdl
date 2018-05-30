@@ -12,17 +12,24 @@ fprintf(fid,'use ieee.math_real.all;\n');
 fprintf(fid,'library work;\n\n');
 fprintf(fid,'package config is\n\n');
 
-%% Variable nodes
+%% General parameters
+
+fprintf(fid,'------ General Parameters -----\n');
 
 fprintf(fid,['-- Number of variable nodes\n' ...
     'constant N : integer := %d;\n\n' ...
     '-- Number of check nodes\n' ...
     'constant M : integer := %d;\n\n'], param.N, param.M);
 
+fprintf(fid,'-- Number of decoding iterations\n');
+fprintf(fid,'constant iter : integer := %d;\n\n', param.maxIter);
+
 fprintf(fid,'-- LLR bit-widths\n');
 fprintf(fid,'constant QLLR : integer := %d;\n', param.QLLR);
 fprintf(fid,'constant QCh : integer := %d;\n\n', param.QCh);
 
+
+%% Variable nodes
 fprintf(fid,'------ Variable Nodes -----\n');
 fprintf(fid,'-- Variable node degree\n');
 fprintf(fid,'constant VNodeDegree : integer := %d;\n\n', param.VNodeDegree);
@@ -37,21 +44,6 @@ fprintf(fid,'type IntLLRTypeV is array (0 to VNodeDegree-1) of IntLLRSubType;\n\
 
 %% Generate LUTs
 fprintf(fid,'------ LUTs ------\n');
-
-% % Convert 4bit width channel to 3 bits with a LUT
-% if (param.QLLR==3 && param.QCh==4)
-%     warning ('Channel bit width does not match LLR bit width. A LUT is added to perform 4-bit to 3-bit conversion.')
-% 
-%     fprintf(fid,'constant LUTInputBits_4bit_to_3bit : integer := %d;\n', param.QCh);
-%     fprintf(fid,'constant LUTSize_4bit_to_3bit : integer := 2**(LUTInputBits_4bit_to_3bit);\n');
-%     fprintf(fid,'type LUTType_4bit_to_3bit is array (0 to LUTSize_4bit_to_3bit-1) of integer range 0 to 2**%d-1;\n', param.QLLR);
-%     fprintf(fid,'constant LUT_4bit_to_3bit : LUTType_4bit_to_3bit :=(0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7);\n');
-%     fprintf(fid,'\n\n');
-% elseif (param.QLLR~=param.QCh)
-%     error('There is a LUT for 4-bit ro 3-bit conversion. Modify this LUT or ad another one to support your bit width scenario')
-% else
-%     
-% end
 
 % Convert from channel LLR bit-width to check node bit-width for first check node
 fprintf(fid,'constant LUTInputBits_QCh_to_Qmsg : integer := %d;\n', param.QCh);
@@ -80,16 +72,18 @@ for iter = 1:param.maxIter
                 fprintf(fid,'subtype LUTAddrL%d_N%d_S%d is std_logic_vector(0 to LUTInputBitsL%d_N%d_S%d-1);\n', level-1, node-1, iter-1, level-1, node-1, iter-1);
                 fprintf(fid,'constant LUTL%d_N%d_S%d : LUTTypeL%d_N%d_S%d := (', level-1, node-1, iter-1, level-1, node-1, iter-1);
                 
-                % Shuffle values if needed to ensure correct check node operation
-                if( iter == param.maxIter && level == 1 && node == 1 )
-                    lut=Q{node,level}.map;
-                    lut_shuffled = lut;
-                else
-                    lut_shuffled = shuffler(Q{node,level});
-                end
+                % Get look-up table mapping
+                lut=Q{node,level}.map;
                 
-                fprintf(fid,'%d,', lut_shuffled(1:end-1));%Q{node,level}.map(1:end-1));%
-                fprintf(fid,'%d);\n\n', lut_shuffled(end));%Q{node,level}.map(end));%
+                % Write mapping to file
+                if( iter == param.maxIter && level == 1 && node == 1)
+                    % Invert decision look-up tree outputs to match BPSK mapping
+                    fprintf(fid,'%d,', ~lut(1:end-1));
+                    fprintf(fid,'%d);\n\n', ~lut(end));
+                else
+                    fprintf(fid,'%d,', lut(1:end-1));
+                    fprintf(fid,'%d);\n\n', lut(end));
+                end
             end
         end
     end
@@ -131,7 +125,7 @@ fprintf(fid,'function to_std_logic(i : in integer range 0 to 1) return std_logic
 
 fprintf(fid,['end config;\n\n' ...
     'package body config is\n\n' ...
-    '  function to_std_logic(i : in integer range 0 to 1) return std_logic is\n' ... 
+    '  function to_std_logic(i : in integer range 0 to 1) return std_logic is\n' ...
     '  begin\n' ...
     '  if i = 0 then\n' ...
     '      return ''0'';\n' ...

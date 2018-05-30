@@ -84,6 +84,7 @@ for iter = 1:param.maxIter
         for node = 1:treeNodes(level)
             % One LUT address signal for each of the VNodeDegree trees
             for ii = 1:param.VNodeDegree
+                concatStr = ';\n';
                 fprintf(fid,'  LUTAddrL%d_N%d_%dxD <= ', level-1, node-1, ii-1);
                 for jj = 1:length(Q{node,level}.inres)
                     % Message is from CNs
@@ -93,22 +94,21 @@ for iter = 1:param.maxIter
                         else
                             inputMsgCounter(ii) = inputMsgCounter(ii) + 1;
                         end
-                        fprintf(fid,'std_logic_vector(to_unsigned(IntLLRxDI(%d),%d))',inputMsgCounter(ii)-1, Q{node,level}.inres(jj));
+                        concatStr = strcat(sprintf(' std_logic_vector(to_unsigned(IntLLRxDI(%d),%d))', inputMsgCounter(ii)-1, Q{node,level}.inres(jj)), concatStr);
                         % If this is not the last signal, concatenate. Otherwise, just end line.
                         % Message is from channel
                     elseif( strcmp(Q{node,level}.type(jj),'cha') )
-                        fprintf(fid,'std_logic_vector(to_unsigned(ChLLRxDI,%d))', Q{node,level}.inres(jj));
+                        concatStr = strcat(sprintf(' std_logic_vector(to_unsigned(ChLLRxDI,%d))', Q{node,level}.inres(jj)), concatStr);
                         % Message is intermadiate (i.e., the output of some other LUT of the previous level)
                     elseif( strcmp(Q{node,level}.type(jj),'im') )
                         imMsgCounter(ii) = imMsgCounter(ii) + 1;
-                        fprintf(fid,'std_logic_vector(to_unsigned(LUTDataL%d_N%d_%dxD,%d))', level, imMsgCounter(ii)-1, ii-1 , Q{node,level}.inres(jj));
+                        concatStr = strcat(sprintf(' std_logic_vector(to_unsigned(LUTDataL%d_N%d_%dxD,%d))', level, imMsgCounter(ii)-1, ii-1 , Q{node,level}.inres(jj)), concatStr);
                     end
                     if( jj ~= length(Q{node,level}.inres) )
-                        fprintf(fid,' & ');
-                    else
-                        fprintf(fid,';\n');
+                        concatStr = strcat(' &', concatStr);
                     end
                 end
+                fprintf(fid, concatStr);
             end
             fprintf(fid,'\n');
         end
