@@ -186,18 +186,13 @@ classdef node < handle
             %=== preamble
             outstring = sprintf(['\\tikzset{\n', ...
                                 '   leavenode/.style = {align=center, inner sep=2pt, text centered },\n',...
-                                '   imnode/.style = {align=center, inner sep=1pt, text centered},\n']);
-            height = obj.get_height();
-            for hh=1:height
-                outstring = sprintf('%s   level %d/.style={sibling distance=%dmm},\n', outstring, hh, 7*2^(height-hh));
-            end
-            outstring = sprintf(['%s'...
+                                '   imnode/.style = {align=center, inner sep=1pt, text centered}\n',...
                                 '}\n\n',...
                                 '\\def\\imstring{$\\Phi$}\n',...
                                 '\\def\\chastring{$L$}\n',...
                                 '\\def\\msgstring{$\\mu$}\n\n',...
                                 '\\begin{tikzpicture}[<-, >=stealth]' ...
-                                ], outstring);
+                                ]);
             outstring= drawTreeRecursive(obj,outstring,0);
             %=== postamble
             outstring = sprintf('%s\n\\end{tikzpicture}',outstring);
@@ -207,7 +202,7 @@ classdef node < handle
             % Recursive part of drawTree. Use root.drawTreeRecursive([],0)
             % if you want to produce only the tree without the preamble
             %=== Write a newline and indentation
-            outstring=obj.newTreeLine(outstring, level);
+            outstring=newTreeLine(outstring, level);
             %=== Write the nodes according to the type of node
             switch obj.type
                 case 'root'
@@ -227,23 +222,13 @@ classdef node < handle
             end
             %=== Befor returning, the child{... statements need to be
             %closed
-            outstring = obj.newTreeLine(outstring, level);
+            outstring = newTreeLine(outstring, level);
             if strcmp(obj.type, 'root')
                 outstring = [outstring, ';'];
             else
                 outstring = [outstring, '}'];
             end
             
-        end
-        
-        function h = get_height(obj)
-            h = 0;
-            for cc=1:length(obj.children)
-                h_tmp = obj.children{cc}.get_height();
-                if(h_tmp >= h)
-                    h = h_tmp+1;
-                end
-            end
         end
         
     end
