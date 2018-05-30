@@ -13,5 +13,8 @@ ModelSim/vsim.wlf
 ModelSim/vsim_stacktrace.vstf
 ModelSim/work/
 
+# Testbench stimulis
+ModelSim/OUT/
+
 # Octave Workspace
 *octave-workspace*

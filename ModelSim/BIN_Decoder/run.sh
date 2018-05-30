@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VSIM=vsim #~/altera/13.1/modelsim_ase/bin/vsim
+VSIM=~/altera/13.1/modelsim_ase/bin/vsim
 # Run the testbench
 $VSIM -novopt -t 1ps \
 			-do BIN_Decoder/SimScripts.do \

@@ -1,7 +1,7 @@
 #! /bin/bash
 
-VCOM=vcom #~/altera/13.1/modelsim_ase/bin/vcom
-VLIB=vlib #~/altera/13.1/modelsim_ase/bin/vlib
+VCOM=~/altera/13.1/modelsim_ase/bin/vcom
+VLIB=~/altera/13.1/modelsim_ase/bin/vlib
 
 LIB=work
 rtlpath=../TopLevelDecoder
